@@ -41,8 +41,6 @@ class UserController extends BaseController
             'exp' => time() + 60*60 // Expiration time
         ];
         
-        // As you can see we are passing `JWT_SECRET` as the second parameter that will 
-        // be used to decode the token in the future.
         return JWT::encode($payload, env('JWT_SECRET'));
     } 
     /**
@@ -59,10 +57,6 @@ class UserController extends BaseController
         // Find the user by email
         $user = User::where('email', $this->request->input('email'))->first();
         if (!$user) {
-            // You wil probably have some sort of helpers or whatever
-            // to make sure that you have the same response format for
-            // differents kind of responses. But let's return the 
-            // below respose for now.
             return response()->json([
                 'error' => 'Email does not exist.'
             ], 400);
@@ -80,7 +74,7 @@ class UserController extends BaseController
     }
 
     public function logout(Request $request){
-
+        
         $user->destroyToken();
         return response()->json(["Logout Successful"], 200);
     }
