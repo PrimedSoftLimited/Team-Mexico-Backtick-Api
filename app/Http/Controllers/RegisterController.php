@@ -18,7 +18,7 @@ class RegisterController extends Controller
 		$user = User::create([
 			'username' => $request->input('username'),
 			'email' => $request->get('email'),
-			'phone_number' => $request->input('phone_number'),
+			'phone' => $request->input('phone'),
 			'password'=> Hash::make($request->get('password')),
 			'api_token' => $token
 		]);
@@ -31,7 +31,7 @@ class RegisterController extends Controller
 		$rules = [
             'username' => 'required|unique:users',
 						'email' => 'required|email|unique:users',
-            'phone' => 'required|numeric|phone' ,
+            'phone' => 'required|numeric|min:11' ,
             'password' => 'required|min:6|confirmed'
 		];
 		$this->validate($request, $rules);
