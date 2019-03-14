@@ -4,8 +4,60 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1700738277c7320bc1c2131e7dec26cf",
+    "content-hash": "3fa5c9dd12bcd579e593d29f7949ceea",
     "packages": [
+        {
+            "name": "cloudinary/cloudinary_php",
+            "version": "1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudinary/cloudinary_php.git",
+                "reference": "442cba07f093cdc060038628daa67f013e3dc792"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/442cba07f093cdc060038628daa67f013e3dc792",
+                "reference": "442cba07f093cdc060038628daa67f013e3dc792",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ],
+                "files": [
+                    "src/Helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cloudinary",
+                    "homepage": "https://github.com/cloudinary/cloudinary_php/graphs/contributors"
+                }
+            ],
+            "description": "Cloudinary PHP SDK",
+            "homepage": "https://github.com/cloudinary/cloudinary_php",
+            "keywords": [
+                "cdn",
+                "cloud",
+                "cloudinary",
+                "image management",
+                "sdk"
+            ],
+            "time": "2018-12-16T15:58:27+00:00"
+        },
         {
             "name": "doctrine/inflector",
             "version": "v1.3.0",
@@ -278,6 +330,123 @@
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
             "time": "2017-06-27T22:17:23+00:00"
+        },
+        {
+            "name": "giggsey/libphonenumber-for-php",
+            "version": "8.10.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giggsey/libphonenumber-for-php.git",
+                "reference": "09686926c6a4ded26944602eae80e56eba088c4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/09686926c6a4ded26944602eae80e56eba088c4b",
+                "reference": "09686926c6a4ded26944602eae80e56eba088c4b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "giggsey/locale": "^1.2",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "pear/pear-core-minimal": "^1.9",
+                "pear/pear_exception": "^1.0",
+                "pear/versioncontrol_git": "^0.5",
+                "phing/phing": "^2.7",
+                "php-coveralls/php-coveralls": "^1.0|^2.0",
+                "phpunit/phpunit": "^4.8.36|^5.0",
+                "symfony/console": "^2.8|^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "libphonenumber\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "/src/data/",
+                    "/src/carrier/data/",
+                    "/src/geocoding/data/",
+                    "/src/timezone/data/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Joshua Gigg",
+                    "email": "giggsey@gmail.com",
+                    "homepage": "https://giggsey.com/"
+                }
+            ],
+            "description": "PHP Port of Google's libphonenumber",
+            "homepage": "https://github.com/giggsey/libphonenumber-for-php",
+            "keywords": [
+                "geocoding",
+                "geolocation",
+                "libphonenumber",
+                "mobile",
+                "phonenumber",
+                "validation"
+            ],
+            "time": "2019-03-07T08:42:08+00:00"
+        },
+        {
+            "name": "giggsey/locale",
+            "version": "1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giggsey/Locale.git",
+                "reference": "da6845720b5d104d319d7e84576f54e44dd9e4f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/da6845720b5d104d319d7e84576f54e44dd9e4f5",
+                "reference": "da6845720b5d104d319d7e84576f54e44dd9e4f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "pear/pear-core-minimal": "^1.9",
+                "pear/pear_exception": "^1.0",
+                "pear/versioncontrol_git": "^0.5",
+                "phing/phing": "~2.7",
+                "phpunit/phpunit": "^4.8|^5.0",
+                "satooshi/php-coveralls": "^1.0",
+                "symfony/console": "^2.8|^3.0|^4.0",
+                "symfony/filesystem": "^2.8|^3.0|^4.0",
+                "symfony/finder": "^2.8|^3.0|^4.0",
+                "symfony/process": "^2.8|^3.0|^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Giggsey\\Locale\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joshua Gigg",
+                    "email": "giggsey@gmail.com",
+                    "homepage": "http://giggsey.com/"
+                }
+            ],
+            "description": "Locale functions required by libphonenumber-for-php",
+            "time": "2018-10-18T07:17:52+00:00"
         },
         {
             "name": "illuminate/auth",
@@ -1407,6 +1576,57 @@
             "time": "2019-02-27T12:03:43+00:00"
         },
         {
+            "name": "jrm2k6/cloudder",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jrm2k6/cloudder.git",
+                "reference": "82d75368890424d166bf025df39611a1d18abcc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jrm2k6/cloudder/zipball/82d75368890424d166bf025df39611a1d18abcc0",
+                "reference": "82d75368890424d166bf025df39611a1d18abcc0",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/cloudinary_php": ">=1.1",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "laravel/framework": ">=5.0",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JD\\Cloudder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Dagorn",
+                    "email": "jeremy.dagorn@gmail.com"
+                }
+            ],
+            "description": "Cloudinary API wrapper for Laravel",
+            "homepage": "https://github.com/jrm2k6/cloudder",
+            "keywords": [
+                "api",
+                "cloudinary",
+                "image",
+                "laravel",
+                "laravel4",
+                "upload"
+            ],
+            "time": "2017-02-03T19:10:37+00:00"
+        },
+        {
             "name": "laravel/lumen-framework",
             "version": "v5.8.1",
             "source": {
@@ -1548,6 +1768,60 @@
                 "jwt"
             ],
             "time": "2018-11-11T12:22:26+00:00"
+        },
+        {
+            "name": "league/iso3166",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/iso3166.git",
+                "reference": "5985f952b23751abeaa8a8703897860bfd8bc366"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/iso3166/zipball/5985f952b23751abeaa8a8703897860bfd8bc366",
+                "reference": "5985f952b23751abeaa8a8703897860bfd8bc366",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0@dev || ^2.0",
+                "phpunit/phpunit": "^4.6 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\ISO3166\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com"
+                }
+            ],
+            "description": "ISO 3166-1 PHP Library",
+            "homepage": "https://github.com/thephpleague/iso3166",
+            "keywords": [
+                "3166",
+                "3166-1",
+                "ISO 3166",
+                "countries",
+                "iso",
+                "library"
+            ],
+            "time": "2018-07-17T06:10:10+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1904,6 +2178,70 @@
                 "type"
             ],
             "time": "2015-07-25T16:39:46+00:00"
+        },
+        {
+            "name": "propaganistas/laravel-phone",
+            "version": "4.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Propaganistas/Laravel-Phone.git",
+                "reference": "1a9f17b2242a8a98e7de8dca4f95c1c8b27cc53a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Propaganistas/Laravel-Phone/zipball/1a9f17b2242a8a98e7de8dca4f95c1c8b27cc53a",
+                "reference": "1a9f17b2242a8a98e7de8dca4f95c1c8b27cc53a",
+                "shasum": ""
+            },
+            "require": {
+                "giggsey/libphonenumber-for-php": "^7.0|^8.0",
+                "illuminate/support": ">=5.0,<5.9",
+                "illuminate/validation": ">=5.0,<5.9",
+                "league/iso3166": "^2.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "*",
+                "phpunit/phpunit": "*"
+            },
+            "suggest": {
+                "propaganistas/laravel-intl": "Adds internationalization functions, including a compatible and fully translated country list API."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Propaganistas\\LaravelPhone\\PhoneServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Propaganistas\\LaravelPhone\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Propaganistas",
+                    "email": "Propaganistas@users.noreply.github.com"
+                }
+            ],
+            "description": "Adds phone number functionality to Laravel and Lumen based on Google's libphonenumber API.",
+            "keywords": [
+                "laravel",
+                "libphonenumber",
+                "lumen",
+                "phone",
+                "validation"
+            ],
+            "time": "2019-03-11T11:52:12+00:00"
         },
         {
             "name": "psr/container",

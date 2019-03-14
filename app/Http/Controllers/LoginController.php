@@ -10,7 +10,7 @@ use Firebase\JWT\ExpiredException;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
-class UserController extends BaseController 
+class LoginController extends BaseController 
 {
     /**
      * The request instance.
@@ -73,9 +73,4 @@ class UserController extends BaseController
         ], 400);
     }
 
-    public function logout(Request $request){
-        
-        $user->destroyToken();
-        return response()->json(["Logout Successful"], 200);
-    }
 }

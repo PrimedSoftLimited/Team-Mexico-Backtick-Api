@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use libphonenumber\PhoneNumberType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -31,10 +32,12 @@ class RegisterController extends Controller
 		$rules = [
             'username' => 'required|unique:users',
 						'email' => 'required|email|unique:users',
-            'phone' => 'required|numeric|min:11' ,
-            'password' => 'required|min:6|confirmed'
+            'phone' => 'required|phone:NG,US,mobile|unique:users',
+						'password' => 'required|min:6|confirmed',
 		];
-		$this->validate($request, $rules);
-
+		$messages = [
+			'phone' => 'The :attribute number is invalid.',
+	];
+		$this->validate($request, $rules, $messages);
     }
 }
