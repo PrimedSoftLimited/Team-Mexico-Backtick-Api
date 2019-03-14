@@ -1,3 +1,5 @@
+# Team-Mexico-Backtick-Application
+
 # Purpose
 Backtick is a goal setting application that lets you keep focus on what matters.
 
@@ -6,6 +8,6 @@ The docs are still a work in progress. Check out the current docs at https://doc
 
 
 # Hosting 
+The application is being hosted on heroku and can be accessed using the url:
+http://backtick.herokuapp.com/public/
 
-http://backtick.herokuapp.com/public/ Team-Mexico-Backtick-Applicatoin
-# Team-Mexico-Backtick-Applicatoin
