@@ -36,6 +36,7 @@ class RegisterController extends Controller
 						'password' => 'required|min:6|confirmed',
 		];
 		$messages = [
+			'required' => ':attribute is required',
 			'phone' => 'The :attribute number is invalid.',
 	];
 		$this->validate($request, $rules, $messages);
