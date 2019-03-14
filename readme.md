@@ -7,4 +7,5 @@ The docs are still a work in progress. Check out the current docs at https://doc
 
 # Hosting 
 
-http://backtick.herokuapp.com/public/
+http://backtick.herokuapp.com/public/ Team-Mexico-Backtick-Applicatoin
+# Team-Mexico-Backtick-Applicatoin
