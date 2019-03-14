@@ -37,7 +37,7 @@ class RegisterController extends Controller
 		];
 		$messages = [
 			'required' => ':attribute is required',
-			'phone' => 'The :attribute number is invalid.',
+			'phone' => ':attribute number is invalid'
 	];
 		$this->validate($request, $rules, $messages);
     }
