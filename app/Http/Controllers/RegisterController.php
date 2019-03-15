@@ -12,8 +12,7 @@ class RegisterController extends Controller
 {
     public function register(Request $request){
 		$this->validateRequest($request);
-
-		$hasher = app()->make('hash');
+								 
 		$token = (str_random(60));
 
 		$user = User::create([
@@ -25,7 +24,7 @@ class RegisterController extends Controller
 		]);
 		$res['message'] = "{$user->username} Created Successfully!";
 		$res['user'] = $user;
-		return response()->json($res, 202);
+		return response()->json($res, 201);
     }
 
     public function validateRequest(Request $request){

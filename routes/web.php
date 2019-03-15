@@ -25,8 +25,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use ($router)
 {
     $router->get('/user', ['uses' => 'ProfileController@show']);
-    $router->put('/user', ['uses' => 'ProfileController@update']);
+    $router->patch('/user', ['uses' => 'ProfileController@update']);
     $router->delete('/user', ['uses' => 'ProfileController@destroy']);
+});
+
+// Upload Image Route
+$router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use ($router)
+{
+    $router->post('/upload', ['uses' => 'ImageController@upload']);
 });
 
 // Goal Routes With Middleware

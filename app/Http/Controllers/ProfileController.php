@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\User;
@@ -43,13 +44,15 @@ class ProfileController extends Controller
         
         $this->validateRequest($request);
 
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->phone = $request->input('phone');
-        $user->password = Hash::make($request->input('password'));
-        $user->api_token = $token;
-
-        $user->save();
+        $user->update([
+			'username' => $request->input('username'),
+			'email' => $request->get('email'),
+			'phone' => $request->input('phone'),
+			'first_name' => $request->input('first_name'),
+			'last_name' => $request->input('last_name'),
+			'password'=> Hash::make($request->get('password')),
+			'api_token' => $token
+        ]);
 
 		$res['message'] = "{$user->username} Updated Successfully!";        
         return response()->json($res, 200);
@@ -57,18 +60,18 @@ class ProfileController extends Controller
 
     public function validateRequest(Request $request){
         
-        $user = Auth::user();
+        $id = Auth::id();
         
         $rules = [
-            'username' => 'required|unique:users,username,' . $user,
-            'email' => 'required|email|unique:users,email',
-            'phone' => 'required|phone:NG,US,mobile',
+            'username' => 'unique:users,username,'.$id.'|required',
+            'email' => 'unique:users,email,'.$id.'|required|email',
+            'phone' => 'unique:users,phone,'.$id.'|required|phone:NG,US,mobile',
             'password' => 'required|min:6|confirmed',
         ];
         $messages = [
             'required' => ':attribute is required',
 			'phone' => ':attribute number is invalid'
         ];
-        $this->validateRequest($request, $rules, $messages);
+        $this->validate($request, $rules);
     }
 }
