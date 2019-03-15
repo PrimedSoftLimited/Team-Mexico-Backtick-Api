@@ -2,66 +2,73 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use libphonenumber\PhoneNumberType;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class ProfileController extends Controller
 {
-    public function showAllUsers()
-    {   
-        $user = User::all();
-        return response()->json($user, 201);
-    }
+        /**
+     * @var \Tymon\JWTAuth\JWTAuth
+     */
+    protected $jwt;
 
-    public function showOneUser(Request $request, $id)
-    {   
-        $user = User::findOrFail($id);
-        return response()->json($user, 201);
-    }
-
-    public function update(Request $request, $id)
+    public function __construct(JWTAuth $jwt)
     {
-        $this->validateRequest($request);
-        $token = (str_random(60));
+        $this->jwt = $jwt;
+    }
 
-        // Update User Account
-        $user = User::findOrFail($id);
+    public function show()
+    {
+        return response()->json(['auth'=>Auth::user()]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
+        $user->delete();
+        $res['message'] = "{$user->username} Deleted Successfully!";
+        return response()->json($res, 201);
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $token = (str_random(60));
+        
+        $this->validateRequest($request);
+
         $user->username = $request->input('username');
         $user->email = $request->input('email');
-        $user->phone = $request->input('password');
-        $user->password = Hash::make($request->get('password'));
+        $user->phone = $request->input('phone');
+        $user->password = Hash::make($request->input('password'));
         $user->api_token = $token;
+
         $user->save();
 
 		$res['message'] = "{$user->username} Updated Successfully!";        
         return response()->json($res, 200);
     }
 
-    public function destroy(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        // if(Auth::user()->id !== $user_id)
-        // {        
-        //     return response()->json('Unauthorized Access!', 400);
-        // }
-        $user->delete();
-        $res['message'] = "{$user->username} Deleted Successfully!";
-        return response()->json($res, 201);
-    }
-
     public function validateRequest(Request $request){
+        
+        $user = Auth::user();
+        
         $rules = [
-            'username' => 'required',
-            'email' => 'required|email',
+            'username' => 'required|unique:users,username,' . $user,
+            'email' => 'required|email|unique:users,email',
             'phone' => 'required|phone:NG,US,mobile',
             'password' => 'required|min:6|confirmed',
         ];
         $messages = [
-            'phone' => 'The :attribute number is invalid.',
+            'required' => ':attribute is required',
+			'phone' => ':attribute number is invalid'
         ];
-        $this->validate($request, $rules, $messages);
+        $this->validateRequest($request, $rules, $messages);
     }
 }
