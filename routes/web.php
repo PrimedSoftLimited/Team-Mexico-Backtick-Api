@@ -36,10 +36,11 @@ $router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use (
 });
 
 // Goal Routes With Middleware
-// $router->group(['prefix' => 'api', 'middleware' => ['jwt.refresh', 'jwt.auth']], function () use ($router) {
-//     $router->get('/goals',  ['uses' => 'GoalController@index']);
-//     $router->get('/goal/{$id}', ['uses' => 'GoalController@show']);
-//     $router->post('/goals', ['uses' => 'GoalController@create']);
-//     $router->put('/goals/{$id}', ['uses' => 'GoalController@update']);
-//     $router->delete('/goals/{$id}', ['uses' => 'GoalController@destroy']);
-//   });
+$router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use ($router) {
+    $router->get('/goal',  ['uses' => 'GoalController@index']);
+    $router->get('/goals', ['uses' => 'GoalController@showAllGoals']);
+    $router->get('/goal/{id}', ['uses' => 'GoalController@showOneGoal']);
+    $router->post('/goal', ['uses' => 'GoalController@create']);
+    $router->patch('/goal/{id}', ['uses' => 'GoalController@update']);
+    $router->delete('/goal/{id}', ['uses' => 'GoalController@destroy']);
+  });
