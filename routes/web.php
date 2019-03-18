@@ -44,3 +44,5 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
     $router->patch('/goal/{id}', ['uses' => 'GoalController@update']);
     $router->delete('/goal/{id}', ['uses' => 'GoalController@destroy']);
   });
+
+  $router->get("ical-goal", "ICalController@getGoalsICalObject");
