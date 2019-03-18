@@ -29,9 +29,9 @@ class GoalController extends Controller
     {   
         $goal = Goal::findOrFail($id);
 
-            if(Auth::user()->id == $goal->owner_id)
+        if(Auth::user()->id == $goal->owner_id)
             {
-                return response()->json($goal, 200);
+                    return response()->json($goal, 200);
             }
             return response()->json('Unauthorized Access!', 400);
     }
@@ -100,9 +100,9 @@ class GoalController extends Controller
 		$rules = [
             'title' => 'required|min:3',
             'description' => 'required|min:3|max:255',
-            'start' => 'required|date',
-            'finish' => 'required|date'
-		];
+            'start' => 'required|date|before:finish',
+            'finish' => 'required|date|after:start',
+        ];
 		$this->validate($request, $rules);
     }
 }
