@@ -45,9 +45,10 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
     $router->delete('/goal/{id}', ['uses' => 'GoalController@destroy']);
   });
 
+
   $router->get("ical-goal", "ICalController@getGoalsICalObject");
 
-// Goal Routes With Middleware
+  // Task Routes With Middleware
 $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use ($router) {
     $router->get('/task',  ['uses' => 'TaskController@index']);
     $router->get('{goal_id}/task', ['uses' => 'TaskController@showAllTasks']);

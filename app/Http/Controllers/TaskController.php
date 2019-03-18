@@ -65,12 +65,13 @@ class TaskController extends Controller
     
 }
 
-    public function create(Request $request, $id)
+    public function create(Request $request, $goal_id)
     {
         // validate inputs
         $this->validateTask($request);
         
-        $goalCheck = Goal::where($id == 'id')->exists();
+        $goal = Goal::all()->first();
+        $goalCheck = Goal::where('id', $goal_id)->exists();
 
         $goal = Goal::where('id', $goal_id)->first();
 
