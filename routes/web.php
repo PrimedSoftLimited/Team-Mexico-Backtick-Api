@@ -25,7 +25,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use ($router)
 {
     $router->get('/user', ['uses' => 'ProfileController@show']);
-    $router->patch('/user', ['uses' => 'ProfileController@update']);
+    $router->put('/user', ['uses' => 'ProfileController@update']);
     $router->delete('/user', ['uses' => 'ProfileController@destroy']);
 });
 
