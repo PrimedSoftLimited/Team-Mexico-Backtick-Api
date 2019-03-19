@@ -30,10 +30,6 @@ $router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use (
 });
 
 // Upload Image Route
-$router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use ($router)
-{
-    $router->post('/upload', ['uses' => 'ImageController@upload']);
-});
 
 // Goal Routes With Middleware
 $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use ($router) {
@@ -41,7 +37,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
     $router->get('/goals', ['uses' => 'GoalController@showAllGoals']);
     $router->get('/goal/{id}', ['uses' => 'GoalController@showOneGoal']);
     $router->post('/goal', ['uses' => 'GoalController@create']);
-    $router->patch('/goal/{id}', ['uses' => 'GoalController@update']);
+    $router->put('/goal/{id}', ['uses' => 'GoalController@update']);
     $router->delete('/goal/{id}', ['uses' => 'GoalController@destroy']);
   });
 
@@ -54,6 +50,9 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
     $router->get('{goal_id}/task', ['uses' => 'TaskController@showAllTasks']);
     $router->get('{goal_id}/task/{id}', ['uses' => 'TaskController@showOneTask']);
     $router->post('{goal_id}/task', ['uses' => 'TaskController@create']);
-    $router->patch('{goal_id}/task/{id}', ['uses' => 'TaskController@update']);
+    $router->put('{goal_id}/task/{id}', ['uses' => 'TaskController@update']);
     $router->delete('{goal_id}/task/{id}', ['uses' => 'TaskController@destroy']);
+
+    $router->post('/upload', ['uses' => 'ImageController@upload']);
+
   });

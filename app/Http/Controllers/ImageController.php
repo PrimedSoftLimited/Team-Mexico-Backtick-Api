@@ -5,33 +5,71 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Cloudder;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class ImageController extends Controller
 {
     public function upload(Request $request)
     {
-        $this->validate($request, [
-            'cover_image' => 'image|nullable|max:1999'
-        ]);
 
-            // Handle file upload
-            if($request->hasFile('cover_image'))
-            {
-                $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
-                $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-                $extension = $request->file('cover_image')->getClientOriginalExtension();
-                $fileNameToStore = $fileName.'_'.'.'.$extension;
-                $path = $request->file('cover_image')->storeAs('public/cover_image', $fileNameToStore);
+       $user = Auth::user();
+       
+       $this->validate($request, [
+           'cover_image' => 'required',
+       ]);
 
-            } else {
-                $fileNameToStore = 'noimage.jpg';
+       $extension = strtolower($request->file('cover_image')->extension());
+
+       $allowed_ext = array("png", "jpg", "jpeg");
+
+       $file_size = filesize($request->file('cover_image'));
+
+       if ($request->hasFile('cover_image') && $request->file('cover_image')->isValid()){
+
+           if (in_array($extension, $allowed_ext)){
+           
+            if ($file_size > 500000) {
+           
+                return response()->json('file too large', 401);
+           
             }
+           
+            if ($user->cover_image != "noimage.jpg"){
+           
+                $image_filename = pathinfo($user->cover_image, PATHINFO_FILENAME);
 
-        // Upload Image
-        $user->cover_image = $fileNameToStore; 
-        $user->save();
+                   try{
+                       Cloudder::destroyImage($image_filename);
+                   } catch (Exception $e){
+                       return response()->json('Try again', 400);
+                   }
+               }
+               try {
+                   Cloudder::upload($request->file('cover_image')->getRealPath());
+               } catch (Exception $e) {
+                   return response()->json('try again', 400);
+               }
 
-        return response()->json($user->cover_image, 200);
+               if ($cloudder) {
+                   $uploadResult = $cloudder->getResult();
+                   $file_url - $uploadResult["public_ic"];
+                   $format = $uploadResult["format"];
+                   $cover_image = $file_url.".".$format;
+                   $user->cover_image = $cover_image;
+                   $user->save();
+
+                   return response()->json('success', 200);
+               }
+           }
+       }
+        // $file_url = "https://res.cloudinary.com/iro/image/upload/v1552487696/Backtick";
+        // if ($request->hasFile('image') && $request->file('image')->isValid()){
+        //     $cloudder = Cloudder::upload($request->file('image')->getRealPath());
+        //     $uploadResult = $cloudder->getResult();
+        //     $file_url = $uploadResult["url"];
+        // }
+        // return response()->json(['file_url' => $file_url], 200);
 
     }
 
