@@ -55,6 +55,7 @@ $app->singleton(
     }
 );
 
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -96,6 +97,8 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(JD\Cloudder\CloudderServiceProvider::class);
 $app->register(Propaganistas\LaravelPhone\PhoneServiceProvider::class);
+$app->register(\Illuminate\Notifications\NotificationServiceProvider::class);
+$app->register(\ciptohadi\LumenNotifications\LumenNotificationsServiceProvider::class);
 
 
 /*

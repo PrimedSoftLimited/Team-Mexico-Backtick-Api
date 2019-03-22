@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\HourlyReminder::class
     ];
 
     /**
@@ -24,6 +24,23 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        // $schedule->command('monthly:reminder')
+        //         ->monthly();
+
+        $schedule->command('hourly:reminder')
+                ->hourly();
+   
+   
+    //    $schedule->command('')->everyMinute();
     }
+
+       /**
+    * Register the Closure based commands for the application.
+    *
+    * @return void
+    */
+   protected function commands()
+   {
+       require base_path('routes/console.php');
+   }
 }

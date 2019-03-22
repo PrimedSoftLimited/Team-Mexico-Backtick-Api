@@ -7,6 +7,7 @@ use App\Goal;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
 use Firebase\JWT\ExpiredException;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
 class GoalController extends Controller
@@ -21,7 +22,6 @@ class GoalController extends Controller
     public function showAllGoals()
     {   
         $goal = Auth::user()->goal;
-
         return response()->json($goal, 200);
     }
 
@@ -31,7 +31,7 @@ class GoalController extends Controller
 
         if(Auth::user()->id == $goal->owner_id)
             {
-                    return response()->json($goal, 200);
+                return response()->json($goal, 200);
             }
             return response()->json('Unauthorized Access!', 400);
     }

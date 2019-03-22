@@ -27,6 +27,7 @@ $router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use (
     $router->get('/user', ['uses' => 'ProfileController@show']);
     $router->put('/user', ['uses' => 'ProfileController@update']);
     $router->delete('/user', ['uses' => 'ProfileController@destroy']);
+    $router->post('/upload', 'ImageController@upload');
 });
 
 // Upload Image Route
