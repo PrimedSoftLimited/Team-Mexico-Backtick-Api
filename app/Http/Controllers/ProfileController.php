@@ -9,7 +9,6 @@ use libphonenumber\PhoneNumberType;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -28,7 +27,6 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user();
-        $user->notify(new GoalNotification($goal));
         return response()->json($user, 200);
     }
 
