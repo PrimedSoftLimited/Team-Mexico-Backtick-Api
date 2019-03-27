@@ -29,15 +29,14 @@ class TaskController extends Controller
             if ($goalCheck){
 
                 $task = Task::where('goal_id', $goal_id)->first();
-
-                if ($task){
-
-                    return response()->json($task, 200);
                 
+                if ($task){
+                    
+                    return response()->json($task, 200);
                 } return response()->json('Task Does not Exist', 401);
-
+            
             } return response()->json('Goal Does not Exist', 401);
-
+        
         } return response()->json('Unauthorized Acess!', 401);
     }
 
@@ -54,16 +53,16 @@ class TaskController extends Controller
                 $task = Task::where('id', $id)->where('goal_id', $goal_id)->first();
             
                     if ($task){
+                        
+                        return response()->json($task, 200);
+                    
+                    }return response()->json('Unauthorized Access!', 400);
+                
+                }return response()->json('Goal or Task Does not exist!', 400);
             
-                return response()->json($task, 200);
-
             }return response()->json('Unauthorized Access!', 400);
-            
-        }return response()->json('Goal or Task Does not exist!', 400);
         
-    }return response()->json('Unauthorized Access!', 400);
-    
-}
+        }
 
     public function create(Request $request, $goal_id)
     {
@@ -89,11 +88,10 @@ class TaskController extends Controller
 		        return response()->json($res, 201);
             } 
             return response()->json('Goal does not exist', 401);
-    }
+        }
 
     public function update(Request $request, $id, $goal_id)
     {
-
         $goal = Goal::all()->first();
         $goalCheck = Goal::where('id', $goal_id)->exists();
         $taskCheck = Task::where('id', $id)->exists();
@@ -116,11 +114,11 @@ class TaskController extends Controller
                     $res['message'] = "{$task->description} Updated Successfully!";
                     $res['goal'] = $task;
                     return response()->json($res, 201);
-
-            }return response()->json('Unauthorized Access!', 400);
-
-            }return response()->json('does not exist!', 400);
+                
+                }return response()->json('Unauthorized Access!', 400);
             
+            }return response()->json('does not exist!', 400);
+        
         }return response()->json('Unauthorized Access!', 400);
     }
 
@@ -150,7 +148,8 @@ class TaskController extends Controller
         }return response()->json('Unauthorized Access!', 400);
     }
         
-    public function validatetask(Request $request){
+    public function validatetask(Request $request)
+    {
 
 		$rules = [
             'description' => 'required|min:3|max:255',

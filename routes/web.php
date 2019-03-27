@@ -30,6 +30,9 @@ $router->group(['middleware' => 'auth:api', 'prefix' => 'api'], function() use (
     $router->post('/upload', 'ImageController@upload');
 });
 
+$router->post('/password/email', 'PasswordController@postEmail');
+$router->post('/password/reset/{token}', 'PasswordController@postReset');
+
 // Upload Image Route
 
 // Goal Routes With Middleware
@@ -41,7 +44,6 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth:api'], function () use 
     $router->put('/goal/{id}', ['uses' => 'GoalController@update']);
     $router->delete('/goal/{id}', ['uses' => 'GoalController@destroy']);
   });
-
 
   $router->get("ical-goal", "ICalController@getGoalsICalObject");
 

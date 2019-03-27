@@ -25,6 +25,10 @@ $app->withFacades();
 
 $app->withEloquent();
 
+$app->configure('services');
+
+$app->configure('mail');
+
 class_alias('JD\Cloudder\Facades\Cloudder', 'Cloudder');
 
 /*
@@ -94,10 +98,12 @@ $app->routeMiddleware([
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(JD\Cloudder\CloudderServiceProvider::class);
+$app->register(\Illuminate\Mail\MailServiceProvider::class);
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Propaganistas\LaravelPhone\PhoneServiceProvider::class);
 $app->register(\Illuminate\Notifications\NotificationServiceProvider::class);
+$app->register(\Illuminate\Auth\Passwords\PasswordResetServiceProvider::class);
 $app->register(\ciptohadi\LumenNotifications\LumenNotificationsServiceProvider::class);
 
 

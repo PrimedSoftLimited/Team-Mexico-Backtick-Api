@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('password');
             $table->string('cover_image')->default('noimage.jpg');
+            $table->string('image_url')->nullable();
             $table->string('api_token', 80)
                     ->unique()
                     ->nullable()

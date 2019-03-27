@@ -33,10 +33,23 @@ class ProfileController extends Controller
     public function destroy(Request $request)
     {
         $user = Auth::user();
-        $user->delete();
-        $res['message'] = "{$user->username} Deleted Successfully!";
-        return response()->json($res, 201);
-    }
+        $this-> validate($request, [
+            'password' => 'required|min:6',
+            ]);
+            
+            $password = $request->input('password');
+            
+            if(Hash::check($password, $user->password)) {
+                
+                $delete = $user->delete();
+                
+                if($delete) {
+                    
+                    $res['message'] = "{$user->username} Deleted Successfully!";
+                    return response()->json($res, 201);
+                }
+            } return response()->json('Invalid Password', 401);
+        }
 
     public function update(Request $request)
     {
