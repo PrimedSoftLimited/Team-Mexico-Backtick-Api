@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat|Noto+Sans|Raleway|Source+Sans+Pro|Ubuntu|Roboto|Roboto+Condensed|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <header>
+        <div id="head">
+            <div id="left">
+                <div id="hamburger">
+                    <div id="top"></div>
+                    <div id="middle"></div>
+                    <div id="bottom"></div>
+                </div>
+                <div id="logo">backtick</div>
+            </div>
+            <div id="middle">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <div id="right">
+                <div id="user">
+                    <i id="profile" class="far fa-user"></i>
+                    <button id="logout">
+                        Logout
+                    </button>
+                </div>
+                <i id="notifications" class="far fa-bell"></i>
+                <!-- <i id="settings" class="fas fa-cog"></i> -->
+            </div>
+        </div>
+    </header>
+    <div id="main">
+        <nav id="sidebar">
+            <ul>
+                <li>
+                    <div>
+                        <a href="#">
+                            <i class="fas fa-home"></i>HOME
+                        </a>
+                    </div>
+                </li>
+                <hr>
+                <li class="lists">
+                    <div>
+                        <i class="far fa-check-circle"></i>MY LISTS
+                    </div>
+                </li>
+                <ul id="my-lists">
+                    <!-- insert grouped tasks as child lists as user adds personal tasks, e.g personal, shopping, movies to watch -->
+                    <li>
+                        <span>Personal</span>
+                        <span></span>
+                    </li>
+                    <li>
+                        <span>Shopping</span>
+                        <span></span>
+                    </li>
+                    <li>
+                        <span>Movies to watch</span>
+                        <span></span>
+                    </li>
+                </ul>
+                <hr>
+                <li class="tags">
+                    <div>
+                        <i class="fas fa-highlighter"></i>TAGS
+                    </div>
+                </li>
+                <ul id="my-tags">
+                    <!-- insert color coded tags as added by user -->
+                    <li>
+                        <span></span>
+                        <span>Important</span>
+                    </li>
+                    <li>
+                        <span></span>
+                        <span>School</span>
+                    </li>
+                    <li>
+                        <span></span>
+                        <span>Code</span>
+                    </li>
+                </ul>
+            </ul>
+        </nav>
+        <section id="group-goal">
+            <div id="con-goal">
+                <div id="today">
+                    <h2>Today</h2>
+                </div>
+                <div id="tomorrow">
+                    <h2>Tomorrow</h2>
+                </div>
+                <div id="upcoming">
+                    <h2>Upcoming</h2>
+                </div>
+            </div>
+            <div id="con-add-goal">
+
+                <input type="text" id="pseudo-add-goal" placeholder="Click to quickly add a task" class="active" onfocus="activateGoal()">
+
+                <div id="activate">
+                    <input type="text" id="add-goal-title" placeholder="Title">
+                    
+                    <textarea id="add-goal" cols="30" rows="2">Notes</textarea>
+                    
+                    <button onclick="goalDuration()">
+                        <i class="far fa-clock"></i>
+                    </button>
+                    <div id="goal-settings" class="animated fadeInLeft faster">
+                        <div id="goal-settings-head" class="">
+                            Pick date & time
+                        </div>
+                        <hr>
+                        <input type="date" name="" class="goal-settings-body" id="goal-due">
+                        <input type="time" name="" class="goal-settings-body" id="">
+                        <div class="custom-select">
+                            <select>
+                                <option value="0">Does not repeat</option>
+                                <option value="1">Does not repeat</option>
+                                <option value="2">Daily</option>
+                                <option value="3">Weekly</option>
+                                <option value="4">Monthly</option>
+                                <option value="5">Yearly</option>
+                                <option value="6">Custom</option>
+                            </select>
+                        </div>
+                        <button id="submit-goal" type="submit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="group-subgoal">
+            
+        </section>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
