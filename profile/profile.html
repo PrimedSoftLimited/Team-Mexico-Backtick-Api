@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/profile.css">
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../assets/apps/intl-tel-input-15.0.0/build/css/intlTelInput.css">
+</head>
+<body>
+    <header>
+        <nav class="nav-bar">
+            <div id="nav-logo" class="nav-link nav-link-left">backtick</div>
+        </nav>
+    </header>
+    <div id="container">
+        <div id="settings">
+            <div id="head-settings">
+                <div id="btn-close">
+                    <div id="btn-close-left"></div>
+                    <div id="btn-close-right"></div>
+                </div>
+            </div>
+            <div id="body-settings">
+                <div class="con-group">
+                    <div class="group">
+                        <div>
+                            <label for="fname">Name</label><br>
+                            <div class="con-input">
+                                <input id="fname" name="fname" class="" type="text" placeholder="Firstname">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="lname">Lastname</label><br>
+                            <div class="con-input">
+                                <input id="lname" name="lname" class="" type="text" placeholder="Surname">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="usrname">Username</label><br>
+                            <div class="con-input">
+                                <input id="usrname" name="usrname" class="" type="text" placeholder="Enter username" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <div>
+                            <label for="email">Email</label><br>
+                            <div class="con-input">
+                                <input id="email" name="email" class="" type="text" placeholder="Enter email" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="phone">Phone</label><br>
+                            <div class="con-input">
+                                <input id="phone" name="phone" class="" type="tel" placeholder="" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="con-group">
+                    <div class="group">
+                        <div>
+                            <h2 id="cpwd-head">
+                                Change Password
+                            </h2>
+                            <label for="pwd">Password</label><br>
+                            <div class="con-input con-pwd">
+                                <input id="pwd" name="pwd" class="req" type="password" placeholder="">
+                                <span id="password" onclick="showPwd('#password', '#pwd')">&#xf06e;</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="npwd">New Password</label><br>
+                            <div class="con-input con-npwd">
+                                <input id="npwd" name="npwd" class="req" type="password" placeholder="">
+                                <span id="npassword" onclick="showPwd('#npassword', '#npwd')">&#xf06e;</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="cnpwd">Confirm new password</label><br>
+                            <div class="con-input con-cnpwd">
+                                <input id="cnpwd" name="cnpwd" class="" type="password" placeholder="">
+                                <span id="cnpassword" onclick="showPwd('#cnpassword', '#cnpwd')">&#xf06e;</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <button type="submit">Apply
+                        <figure id="arrow">&rarr;</figure>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="profile">
+            <div id="profile-header">
+                <img src="../assets/images/highrise.jpeg" id="profile-pic">
+            </div>
+            <div id="sub-profile-header">
+                <button id="btn-settings">
+                    Set Preferences
+                </button>
+                <div id="profile-id">
+                    <p id="f-name"></p>
+                    <small id="username">@</small>
+                </div>
+                <div id="view">
+                    <p id="view1">Finished</p>
+                    <p id="view2">Unfinished</p>
+                </div>
+            </div>
+        </div>                
+        <div id="profile-body">
+            <div class="goal finished">
+                <div class="goal-top-right">
+                    <small class="time">Mar, 24</small>
+                    <i class="icon fa fa-trash" aria-hidden="true"></i>
+                </div>
+                <p class="goal-body">
+                    hello wurld
+                </p>
+                <div class="goal-bottom-right">
+                    <a class="view-task">...</a>
+                    <i class="icon fas fa-redo"></i>
+                </div>
+            </div>
+            
+            <div class="goal unfinished">
+                <div class="goal-top-right">
+                    <small class="time">Mar, 24</small>
+                    <i class="icon fa fa-trash" aria-hidden="true"></i>
+                </div>
+                <p class="goal-body">
+                    hello wurld
+                </p>
+                <div class="goal-bottom-right">
+                    <a class="view-task">...</a>
+                    <i class="icon fas fa-redo"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../assets/apps/intl-tel-input-15.0.0/build/js/intlTelInput.js"></script>
+    <script>
+        function showPwd(x) {
+
+            
+        };
+    </script>
+    <script src="profile.js"></script>
+</body>
+</html>
