@@ -28,7 +28,7 @@ class TaskController extends Controller
 
             if ($goalCheck){
 
-                $task = Task::where('goal_id', $goal_id)->first();
+                $task = Task::where('goal_id', $goal_id)->get();
                 
                 if ($task){
                     
