@@ -6,7 +6,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: rgb(32, 30, 30);
-    background: url('../assets/images/architectural-design-architecture-building-2034378.jpg'), linear-gradient(rgba(0, 0, 0, .9), rgba(0, 0, 0, .8));
+    /* background: url('../assets/images/architectural-design-architecture-building-2034378.jpg'); */
+    overflow: hidden;
 }
 i {
     opacity: .7;
@@ -62,9 +63,9 @@ header {
     box-shadow: 0 0 1px #343838;
 }
 #hamburger.active #top {
-    -webkit-transform: translateY(10px) rotate(-135deg);
-    -ms-transform: translateY(10px) rotate(-135deg);
-    transform: translateY(10px) rotate(-135deg);
+    -webkit-transform: translateY(5px) rotate(-135deg);
+    -ms-transform: translateY(5px) rotate(-135deg);
+    transform: translateY(6.3px) rotate(-135deg);
 }
 #hamburger.active #middle {
     -webkit-transform: scale(0);
@@ -72,9 +73,9 @@ header {
     transform: scale(0);
 }
 #hamburger.active #bottom {
-    -webkit-transform: translateY(-10px) rotate(-45deg);
-    -ms-transform: translateY(-10px) rotate(-45deg);
-    transform: translateY(-10px) rotate(-45deg);
+    -webkit-transform: translateY(-5px) rotate(-45deg);
+    -ms-transform: translateY(-5px) rotate(-45deg);
+    transform: translateY(-6.3px) rotate(-45deg);
 }   
 #middle {
     position: relative;
@@ -128,17 +129,18 @@ header {
 }
 
 /* main content */
-
 #main {
     display: flex;
     flex-flow: row nowrap;
 }
 #sidebar {
+    position: relative;
+    display: flex;
     font-family: 'Roboto', sans-serif;
     /* font-family: 'Roboto Condensed', sans-serif; */
     /* font-family: 'Roboto Mono', monospace; */
-    width: 250px;
     height: auto;
+    width: auto;
     padding: 10px 0;
     font-size: 1.2em;
     font-weight: 700;
@@ -156,7 +158,24 @@ header {
 #sidebar i {
     margin-right: 30px;
 }
+#sidebar .flat {
+    display: inline-block;
+    width: 0;
+    transition: width 500ms cubic-bezier(0.6, 0.05, 0.28, 0.91);
+}
+#sidebar .flat.active {
+    width: 150px;
+} 
+#sidebar .flat span {
+    font-size: 0;
+    /* display: none; */
+}
+#sidebar.active .flat span {
+    font-size: 1em;
+}
 #sidebar > ul > li {
+    box-sizing: border-box;
+    display: flex;
     padding: 15px 0px;
     margin: 5px 0;
     border-radius: 0 25px 25px 0;
@@ -164,7 +183,12 @@ header {
     opacity: 1;
 }
 #sidebar > ul > li:hover {
-    padding: 15px 20px;
+    background-color: #ddd;
+    transition: all 200ms;
+    opacity: 1;
+}
+#sidebar.active > ul > li:hover {
+    padding: 15px 0px 15px 10px;
     background-color: #ddd;
     transition: all 200ms;
     opacity: 1;
@@ -177,7 +201,7 @@ header {
     opacity: 1;
 }
 
-#sidebar > ul > li > div {
+#sidebar > ul > li > div:nth-of-type(1) {
     padding-left: 33px;
 }
 #sidebar hr {
@@ -187,6 +211,46 @@ header {
 }
 #sidebar > ul > li:active {
     background-color: deepskyblue;
+}
+
+#main-con {
+    display: block;
+    background: no-repeat center url("../assets/images/architectural-design-architecture-building-2058172.jpg");
+    width: 100vw;
+    height: 100vh;
+}
+#sub-main-con {
+    display: flex;
+}
+#date {
+    grid-area: date;
+    align-self: stretch;
+    font-size: 4rem;
+}
+#month {
+    grid-area: month;
+    align-self: stretch;
+    font-size: 2rem;
+}
+#year {
+    grid-area: year;
+    align-self: stretch;
+    font-size: 2rem;
+}
+#day {
+    grid-area: day;
+    align-self: center;
+    font-size: 2rem;
+}
+#calender {
+    display: grid;
+    width: 500px;
+    grid-template: "date month . ." 30px
+                    "date year . day" 30px / auto auto 200px auto;
+    margin: 15px 0 0 3%;
+    padding: 5px;
+    color: #032D55;
+    text-shadow: 0 0 1px rgb(32, 30, 30), 0 0 1px #999;
 }
 
 /* user added tags and lists */
@@ -204,7 +268,7 @@ header {
 #group-goal, #group-subgoal {
     position: relative;
     height: 83vh;
-    margin: 35px 0 0 3%;
+    margin: 10px 0 0 3%;
     background-color: white;
     height: 70vh;
     width: 500px;
@@ -223,7 +287,7 @@ header {
     margin-bottom: 10px;
 }
 .goal, .task {
-    cursor: pointer;
+    cursor: default;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -242,19 +306,22 @@ header {
 .goal.inactive #goal-title, .task.inactive #task-title  {
     text-decoration: line-through;
 }
+.goal #delete, .task #delete {
+    position: absolute;
+    right: 0;
+}
 .goal:hover #delete::after, .task:hover #delete::after {
-    opacity: .5;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: .9;
     font-family: "Font Awesome 5 Free";
     content: "\f057";
     font-weight: 700;
 }
-.goal.inactive #delete::after, .task.inactive #delete::after {
-    opacity: initial;
-    font-family: "Font Awesome 5 Free";
-    content: "\f057";
-    font-weight: 700;
-}
-.goal:active, .task:active {
+.goal.active, .task.active {
     border: 1px solid rgba(75, 212, 250, .4);
     border-radius: 5px;
     box-shadow: 0 0 1px 1px rgba(75, 212, 250, .4), 0 5px 4px 2pt #eee;
@@ -263,6 +330,7 @@ header {
     margin-right: 10px;
 }
 .checkbox, .checker {
+    cursor: pointer;
     border: 1px solid rgba(32, 30, 30, 0.356);
     border-radius: 50%;
     height: 17px;
@@ -279,11 +347,8 @@ header {
 #goal-title, #task-title {
     /* font-family: 'Lato', sans-serif; */
     /* font-family: 'Montserrat', sans-serif; */
-    /* font-family: 'Source Sans Pro', sans-serif; */
     font-family: 'Raleway', sans-serif;
-    /* font-family: 'Noto Sans', sans-serif; */
-    /* font-family: 'Ubuntu', sans-serif; */
-    opacity: .85;
+    opacity: 1;
 }
 #con-add-goal {
     font-family: 'Raleway', sans-serif;
@@ -350,14 +415,15 @@ textarea {
 }
 #goal-settings {
     display: none;
-    top: 0;
+    bottom: 5px;
     left: 30%;
     position: absolute;
     width: 200px;
-    height: 200px;
-    box-shadow: 0 0 2pt #ccc;
+    height: 200px; 
+    /* border radius not working?? */
+    /* border-radius: 2px; */
+    box-shadow: -3pt 10pt 2pt 5pt rgba(0, 0, 0, .2);
     background-color: white;
-    border-radius: 3px;
 }
 #goal-settings.active {
     display: block;
@@ -378,6 +444,8 @@ textarea {
 }
 #goal-settings-head {
     padding: 10px;
+    background-color: #ccc;
+    color: white;
 }
 .goal-settings-body {
     margin: 10px 0 0 20px;
@@ -455,13 +523,21 @@ textarea {
 #con-subgoal {
     margin: 10px 15px;
 }  
+#subcon-subgoal > input {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+    border: none;
+    outline: none;
+}
 #task-deets, #activity {
     margin-right: 10px;
     font-variant: small-caps;
-
+    cursor: pointer;
 }
-#task-deets.active, #activity.active {
+#task-deets, #activity.active {
     border-bottom: 2px solid #348e9d;
+    color: black;
+    font-size: 1.2em;
 }
 #subcon-subgoal {
     margin-top: 20px;
@@ -499,8 +575,10 @@ textarea {
 }
 #title-subtask {
     font-variant: small-caps;
-    font-size: 1em;
+    font-size: 1.3em;
+    width: 75px;
     margin: 20px 0 10px 0;
+    border-bottom: 2px solid black;
 }
 #btn-new-subtask {
     border: none;
@@ -541,7 +619,11 @@ textarea {
     height: 30px;
     outline: none;
 }
-#new-subtask-time {
+#con-edit-goal-time {
+    display: block;
+    margin-top: 10px; 
+}
+.set-time {
     font-family: 'Raleway', sans-serif;
     margin-top: 10px;
     padding: 5px 10px;
@@ -549,7 +631,7 @@ textarea {
     border-radius: 25px;
     outline: none;
 }
-#new-subtask-date {
+.set-date {
     font-family: 'Raleway', sans-serif;
     margin: 10px 0 0 10px;
     padding: 5px 10px;
@@ -560,6 +642,8 @@ textarea {
 #submit-subtask {
     cursor: pointer;
     float: right;
+    outline: none;
+    background-color: white;
     font-family: 'Raleway', sans-serif;
     font-variant: small-caps;
     font-size: 1em;
@@ -576,43 +660,33 @@ textarea {
     display: inline-block;
 }
 #notes-head{
-    text-decoration: underline;
-}
-#edit-notes {
-    cursor: pointer;
-    float: right;
-    border-radius: 25px;
-    padding: 1px 10px;
-    font-variant: small-caps;
-    font-size: 1em;
+    /* text-decoration: underline; */
+    border-bottom: 2px solid black;
+    font-size: 1.3em;
+    margin-bottom: 5px;
 }
 #edit-notes:hover {
     border: 1px solid rgb(32, 30, 30);
 }
 textarea#notes {
     font-family: 'Raleway', sans-serif;
-    margin: 5px 0px 40px 0;
-    padding: 0 5px;
+    font-size: 1em;
+    margin: 5px 0px 40px;
+    padding: 5px 5px;
     width: 100%;
     height: auto;
     resize: none;
     outline: none;
     border: none;
-    pointer-events: none;
-    overflow-y: hidden;
+    overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-textarea#notes.active {
-    overflow-y: auto;
-    pointer-events: all;
 }
 #con-save {
     position: absolute;
     width: 100%;
-    height: 30px;
+    height: auto;
     bottom: 0px;
-    right: 30px;
 }
 #save-subgoal {
     position: relative;
@@ -620,9 +694,10 @@ textarea#notes.active {
     border: none;
     border-radius: 25px;
     padding: 1px 10px;
+    margin: 15px 30px 20px;
     font-variant: small-caps;
     background-color: initial;
-    font-size: .9em;
+    font-size: 1em;
     outline: none;
     cursor: pointer;
     border: 1px solid rgb(32, 30, 30);
