@@ -1,17 +1,16 @@
 // define selector
-
 function _(str) {
     return document.querySelector(str);
 }
 
 
 // global variables
-
 const token = localStorage.getItem('sessionToken');
-const userUrl = 'http://backtick.herokuapp.com/public/api/user'
+const userUrl = 'http://backtick.herokuapp.com/public/api/user';
+const delUrl = 'http://backtick.herokuapp.com/public/api/goal';
+
 
 // to create new goal
-
 function activateGoal() {
     if (_("#pseudo-add-goal").classList.contains('active')) {
         _("#pseudo-add-goal").classList.remove('active');
@@ -23,7 +22,6 @@ function activateGoal() {
 
 
 // show goal duration window
-
 function goalDuration() {
     if (_("#goal-settings").classList.contains('active')) {
         _("#goal-settings").classList.remove('active')
@@ -34,7 +32,6 @@ function goalDuration() {
 
 
 // today's date
-
 function today() {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -48,7 +45,6 @@ const ta = today();
 
 
 // tomorrow's date
-
 function tomorrow() {
     let today = new Date();
     let dd = String(today.getDate() + 1).padStart(2, '0');
@@ -62,32 +58,81 @@ const ekile = tomorrow();
 
 
 // spruce up time for ui
-
-function time(time) {
-    const obj = {
-        '01': 'Jan',
-        '02': 'Feb',
-        '03': 'Mar',
-        '04': 'Apr',
-        '05': 'May',
-        '06': 'Jun',
-        '07': 'Jul',
-        '08': 'Aug',
-        '09': 'Sep',
-        '10': 'Oct',
-        '11': 'Nov',
-        '12': 'Dec'
+(function time() {
+    let day = {
+        '0': 'Sunday',
+        '1': 'Monday',
+        '2': 'Tuesday',
+        '3': 'Wednesday',
+        '4': 'Thursday',
+        '5': 'Friday',
+        '6': 'Saturday'
     };
-            
-    let date = time.substring(8);
-    let month = time.substring(5, 7);
-    let year = time.substring(0,4);
-    return obj[month] + ' ' + date + ', ' + year;
-}
+    let date = {
+        '1': 'st',
+        '2': 'nd',
+        '3': 'rd',
+        '4': 'th',
+        '5': 'th',
+        '6': 'th',
+        '7': 'th',
+        '8': 'th',
+        '9': 'th',
+        '10': 'th',
+        '11': 'th',
+        '12': 'th',
+        '13': 'th',
+        '14': 'th',
+        '15': 'th',
+        '16': 'th',
+        '17': 'th',
+        '18': 'th',
+        '19': 'th',
+        '20': 'th',
+        '21': 'st',
+        '22': 'nd',
+        '23': 'rd',
+        '24': 'th',
+        '25': 'th',
+        '26': 'th',
+        '27': 'th',
+        '28': 'th',
+        '29': 'th',
+        '30': 'th',
+        '31': 'st',
+    }
+    let month = {
+        '0': 'Jan',
+        '1': 'Feb',
+        '2': 'Mar',
+        '3': 'Apr',
+        '4': 'May',
+        '5': 'Jun',
+        '6': 'Jul',
+        '7': 'Aug',
+        '8': 'Sep',
+        '9': 'Oct',
+        '10': 'Nov',
+        '11': 'Dec'
+    };        
+    let today = new Date();
+    let a = today.getDate();
+    let b = today.getDay();
+    let c = today.getMonth();
+    let d = today.getFullYear();
+    let small = document.createElement("small");
+    small.innerHTML = date[a];
+    small.style.fontSize = ".65em";
+
+    _('#date').innerHTML = a;
+    _('#date').append(small);
+    _('#day').innerHTML = day[b]; 
+    _('#month').innerHTML = month[c];
+    _('#year').innerHTML = d;
+})();
 
 
-// get user data
-
+// get user data. move to profile
 axios.get(userUrl, {
     headers: {
         Authorization: token,
@@ -105,7 +150,6 @@ axios.get(userUrl, {
 
 
 // populate user dashboard with goals
-
 function goals() {
 
     let goalsUrl = 'http://backtick.herokuapp.com/public/api/goals'
@@ -127,7 +171,7 @@ function goals() {
             if (today==0) {
                 _('#today').style.display = "block";
                 _('#today').innerHTML += `
-            <div class="goal animated slideInDown fast" id="goal${obj.id}">
+            <div class="goal animated slideInUp fast" id="goal${obj.id}">
                 <div class="fa checkbox"></div>
                 <div>
                     <div id="goal-title">${obj.title}</div>
@@ -140,7 +184,7 @@ function goals() {
             } else if (tomorrow==0) {
                 _('#tomorrow').style.display = "block";
                 _('#tomorrow').innerHTML += `
-            <div class="goal animated slideInDown fast" id="goal${obj.id}">
+            <div class="goal animated slideInUp fast" id="goal${obj.id}">
                 <div class="fa checkbox"></div>
                 <div>
                     <div id="goal-title">${obj.title}</div>
@@ -153,7 +197,7 @@ function goals() {
             } else {
                 _('#upcoming').style.display = "block";
                 _('#upcoming').innerHTML += `
-            <div class="goal animated slideInDown fast" id="goal${obj.id}">
+            <div class="goal animated slideInUp fast" id="goal${obj.id}">
                 <div class="fa checkbox"></div>
                 <div>
                     <div id="goal-title">${obj.title}</div>
@@ -176,155 +220,248 @@ function goals() {
                 let goalId = goal.id.substring(4);
                 let goalUrl = 'http://backtick.herokuapp.com/public/api/goal' + "/" + goalId;
 
-                axios.get(goalUrl, {
-                    headers: {
-                        Authorization: token
-                    }
-                }).then((response) => {
-                    let obj = response.data;
-                    
-                    _("#group-subgoal").innerHTML = `
-                    <div id="con-subgoal">
-                        <span id="task-deets">task details</span>
-                        <span id="activity">activity</span>
-                        <div id="subcon-subgoal">
-                            <h2>${obj.title}</h2>
-                            <div id="tag-con">
-                                <div class="tag">Important</div>
-                                <div class="tag">Code</div>
-                                <div class="tag">Critical</div>
-                                <div class="tag">Family</div>
-                                <div id="add-tag" class="tag">Add Tag</div>
-                            </div>
-                            <p id="title-subtask">subtasks</p>
-                            <div id="con-subtasks"></div>
-                            <button id="btn-new-subtask">
-                            <span class="fas"></span>
-                            New Subtask</button>
-                            <div id="con-subtask">
-                                <input type="text" id="new-subtask" placeholder="I want to...">
-                                <input type="time" id="new-subtask-time">
-                                <input type="date" id="new-subtask-date">
-                                <span id="submit-subtask">add</span>
-                            </div>
-                            <div id="con-notes">
-                                <p id="notes-head">notes</p>
-                                <p id="edit-notes">edit</p>
-                                <textarea id="notes">${obj.description}</textarea>
-                                <div id="con-save">
-                                    <button id="save-subgoal">save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`
-
-                    let taskUrl = 'http://backtick.herokuapp.com/public/api/' + goalId + '/task';
-
-                    axios.get(taskUrl, {
+                if (goal.classList.contains('active')) {
+                    goal.classList.remove('active');
+                    _("#group-subgoal").style.display = "none";
+                } else {
+                    goal.classList.add('active');
+                    axios.get(goalUrl, {
                         headers: {
                             Authorization: token
                         }
                     }).then((response) => {
+                        let obj = response.data;
+                        taskDetail();
 
-                        let obj_array = response.data;
+                        function taskDetail() {
+                            _("#group-subgoal").style.display = 'block';
+                            _("#group-subgoal").innerHTML = `
+                            <div id="con-subgoal">
+                                <span id="task-deets">task details</span>
+                                <span id="activity">activity</span>
+                                <div id="subcon-subgoal">
+                                    <input id="edit-goal-title" type="text" value="${obj.title}">
+                                    <div id="tag-con">
+                                        <div class="tag">Important</div>
+                                        <div class="tag">Code</div>
+                                        <div class="tag">Critical</div>
+                                        <div class="tag">Team</div>
+                                        <div id="add-tag" class="tag">Add Tag</div>
+                                    </div>
+                                    <div id="con-edit-goal-time">
+                                        <input type="time" class="set-time" id="new-goal-time">
+                                        <input type="date" value="${obj.start}" class="set-date" id="new-goal-date">
+                                    </div>
+                                    <p id="title-subtask">subtasks</p>
+                                    <div id="con-subtasks"></div>
+                                    <button id="btn-new-subtask">
+                                    <span class="fas"></span>
+                                    New Subtask</button>
+                                    <div id="con-subtask">
+                                        <input type="text" id="new-subtask" placeholder="I want to...">
+                                        <input type="time" class="set-time" id="new-subtask-time">
+                                        <input type="date" class="set-date" id="new-subtask-date">
+                                        <button id="submit-subtask">add</button>
+                                    </div>
+                                    <div id="con-notes">
+                                        <p id="notes-head">notes</p>
+                                        <textarea id="notes">${obj.description}</textarea>
+                                        <div id="con-save">
+                                            <button id="save-subgoal">save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`
         
-                        for (let i = 0; i < obj_array.length; i++) {
 
-                        _("#con-subtasks").innerHTML += `
-                            <div class="task animated slideInUp fast" id="task${obj_array[i].id}">
-                                <div class="fa checker"></div>
-                                <div>
-                                    <div id="task-title">${obj_array[i].description}</div>
-                                </div>
-                                <i id="refresh"></i>
-                                <figure id="time"></figure>
-                                <figure id="delete"></figure>
-                            </div>`
-                        }
-                    }).catch((e) => {
-                        console.log(e.response);
-                    })
+                            // get tasks
+                            function tasks() {
+                                let taskUrl = 'http://backtick.herokuapp.com/public/api/' + goalId + '/task';
+        
+                                axios.get(taskUrl, {
+                                    headers: {
+                                        Authorization: token
+                                    }
+                                }).then((response) => {
+            
+                                    let obj_array = response.data;
+                    
+                                    for (let i = 0; i < obj_array.length; i++) {
+            
+                                    _("#con-subtasks").innerHTML += `
+                                        <div class="task animated slideInUp fast" id="task${obj_array[i].id}">
+                                            <div class="fa checker"></div>
+                                            <div>
+                                                <div id="task-title">${obj_array[i].description}</div>
+                                            </div>
+                                            <i id="refresh"></i>
+                                            <figure id="time"></figure>
+                                            <figure id="delete"></figure>
+                                        </div>`
+                                    }
+                                    
 
-                    _("#group-subgoal").style.display = 'block';
+                                    // delete task
+                                    document.querySelectorAll('.task #delete').forEach((e) => {
+                                        e.addEventListener('click', (event) => {
+                                            event.stopImmediatePropagation;
+                                            
+                                            let delUrl = 'http://backtick.herokuapp.com/public/api/' + goalId + '/task/' + e.parentNode.id.substring(4);
 
-                    // display subtask input fields
-                    _("#btn-new-subtask").addEventListener('click', () => {
-                        if (_("#con-subtask").classList.contains('active')) {
-                            _("#con-subtask").classList.remove('active', 'animated', 'fadeIn');
-                            _("#btn-new-subtask").classList.remove('active');
-                        } else {
-                            _("#con-subtask").classList.add('active', 'animated', 'fadeIn');
-                            _("#btn-new-subtask").classList.add('active');
-                        }
-                    });
+                                            axios.delete(delUrl, {
+                                                headers: {
+                                                    Authorization: token
+                                                }
+                                            }).then((response) => {
+                                                console.log(response.data);
+                                                e.parentNode.remove();
+                                            }).catch((error) => {
+                                                console.log(error.response);
+                                            })
+                                        })
+                                    })
+                                    
+                                    // strikethrough on task completion
+                                    document.querySelectorAll(".checker").forEach((e) => {
+                                        e.addEventListener('click', (event) => {
+                                            event.stopPropagation;
+                
+                                            let id = '#' + e.parentNode.id;
 
-                    // create subtask
-                    _("#submit-subtask").addEventListener('click', () => {
-                        let taskTitle = _("#new-subtask").value;
-                        let taskStart = today();
-                        let taskDate = _("#new-subtask-date").value;
-                        let taskUrl = 'http://backtick.herokuapp.com/public/api/' + obj.id + '/task';
-                        let task = {
-                            description: taskTitle,
-                            begin: taskStart,
-                            due: taskDate
-                        };
-
-                        axios.post(taskUrl, task, {
-                            headers: {
-                                Authorization: token
+                                            if (e.classList.contains('active')) {
+                                                e.classList.remove('active', 'none');
+                                                _(id).classList.remove('inactive');
+                                            } else {
+                                                e.classList.add('active', 'none');
+                                                _(id).classList.add('inactive');
+                                            }
+                                        })
+                                    })
+                                }).catch((e) => {
+                                    console.log(e.response);
+                                })
                             }
-                        }).then((response) => {
-                            console.log(response.data);
-                            let obj = response.data.goal;
+                            tasks();
+        
 
-                            _("#con-subtasks").innerHTML += `
-                            <div class="task animated slideInUp fast" id="task${obj.goal_id}">
-                                <div class="fa checker"></div>
-                                <div>
-                                    <div id="task-title">${obj.description}</div>
-                                </div>
-                                <i id="refresh"></i>
-                                <figure id="time"></figure>
-                                <figure id="delete"></figure>
-                            </div>`
+                            // display subtask input fields
+                            _("#btn-new-subtask").addEventListener('click', () => {
+                                if (_("#con-subtask").classList.contains('active')) {
+                                    _("#con-subtask").classList.remove('active', 'animated', 'fadeIn');
+                                    _("#btn-new-subtask").classList.remove('active');
+                                } else {
+                                    _("#con-subtask").classList.add('active', 'animated', 'fadeIn');
+                                    _("#btn-new-subtask").classList.add('active');
+                                }
+                            });
+        
 
-                            _("#con-subtask").classList.remove('active', 'animated', 'fadeIn');
-                            _("#btn-new-subtask").classList.remove('active');
-                        }).catch((error) => {
-                            console.log(error.response);
-                        })
+                            // create subtask
+                            _("#submit-subtask").addEventListener('click', () => {
+                                let taskTitle = _("#new-subtask").value;
+                                let taskDate = _("#new-subtask-date").value;
+                                let taskUrl = 'http://backtick.herokuapp.com/public/api/' + obj.id + '/task';
+                                let task = {
+                                    description: taskTitle,
+                                    begin: today(),
+                                    due: taskDate
+                                };
+        
+                                axios.post(taskUrl, task, {
+                                    headers: {
+                                        Authorization: token
+                                    }
+                                }).then((response) => {
+                                    let obj = response.data.goal;
+        
+                                    _("#con-subtasks").innerHTML += `
+                                    <div class="task animated slideInUp fast" id="task${obj.goal_id}">
+                                        <div class="fa checker"></div>
+                                        <div>
+                                            <div id="task-title">${obj.description}</div>
+                                        </div>
+                                        <i id="refresh"></i>
+                                        <figure id="time"></figure>
+                                        <figure id="delete"></figure>
+                                    </div>`
+        
+                                    _("#con-subtask").classList.remove('active', 'animated', 'fadeIn');
+                                    _("#btn-new-subtask").classList.remove('active');
+                                    getSubtasks();
+                                }).catch((error) => {
+                                    console.log(error.response);
+                                })
+                            })
+
+
+                            // update goal
+                            _('#save-subgoal').addEventListener('click', () => {
+                                let title = _('#edit-goal-title').value;
+                                let desc = _('#notes').value; 
+                                let start = today(); 
+                                let end = _('#new-goal-date').value;
+                                let editUrl = 'http://backtick.herokuapp.com/public/api/goal' + '/' + goalId;
+                                let obj = {
+                                    title: title,
+                                    description: desc,
+                                    start: start,
+                                    finish: end
+                                }
+
+                                axios.put(editUrl, obj, {
+                                    headers: {
+                                        Authorization: token
+                                    }
+                                }).then(() => {
+                                    location.reload();
+                                }).catch((error) => {
+                                    console.log(error.response);
+                                })
+                            })
+                        }
+                    }).catch((error) => {
+                        console.log(error.response);
                     })
-
-
-                    // strikethrough on task completion
-
-                    document.querySelectorAll(".checker").forEach((e) => {
-                        e.addEventListener('click', () => {
-                            e.stopPropagation;
-
-                            let id = '#' + e.parentNode.id;
-                            if (e.classList.contains('active')) {
-                                e.classList.remove('active', 'none');
-                                _(id).classList.remove('inactive');
-                            } else {
-                                e.classList.add('active', 'none');
-                                _(id).classList.add('inactive');
-                            }
-                        })
-                    })
-                }).catch((error) => {
-                    console.log(error.response);
-                })
+                }
+                // end conditional else
             })
         })
 
 
-        // strikethrough on goal completion
+        // create new goal
+        _('#submit-goal').addEventListener('click', (e) => {
+            e.preventDefault;
 
+            let goalUrl = 'http://backtick.herokuapp.com/public/api/goal';
+            let title = _('#add-goal-title').value;
+            let desc = _('#add-goal').value;
+            let gstart = today();
+            let gend = _('#goal-due').value;
+            const goal = {
+                title: title,
+                description: desc,
+                start: gstart,
+                finish: gend
+            };
+
+            axios.post(goalUrl, goal, {
+                headers: {
+                    Authorization: token
+                }
+            })
+            .then(() => {
+                location.reload();
+            }).catch((err) => {
+                console.log(err.response);
+            })
+        });
+
+
+        // strikethrough on goal completion
         document.querySelectorAll(".checkbox").forEach((e) => {
             e.addEventListener('click', () => {
                 e.stopPropagation;
+                e.preventDefault;
 
                 let id = '#' + e.parentNode.id;
                 if (e.classList.contains('active')) {
@@ -337,45 +474,58 @@ function goals() {
             })
         })
 
+
+        // delete goal
+        document.querySelectorAll('.goal #delete').forEach((e) => {
+            e.addEventListener('click', (event) => {
+                event.preventDefault;
+                event.stopPropagation;
+
+                let goal = e.parentNode.id;
+                let goalId = e.parentNode.id.substring(4);
+                let delUrl = 'http://backtick.herokuapp.com/public/api/goal/' + goalId;
+
+                axios.delete(delUrl, {
+                    headers: {
+                        Authorization: token
+                    }
+                }).then(() => {
+                    _('#'+goal).remove();
+                }).catch((error) => {
+                    console.log(error);
+                })
+            })
+        })
     }).catch((error) => {
         console.log(error.response);
     })
-};
+}
 goals();
 
 
-// create new goal
-
-_('#submit-goal').addEventListener('click', (e) => {
-    e.preventDefault;
-
-    let goalUrl = 'http://backtick.herokuapp.com/public/api/goal'
-    let title = _('#add-goal-title').value;
-    let desc = _('#add-goal').value;
-    let gstart = today();
-    let gend = _('#goal-due').value;
-    const goal = {
-        title: title,
-        description: desc,
-        start: gstart,
-        finish: gend
-    };
-
-    axios.post(goalUrl, goal, {
-        headers: {
-            Authorization: token
-        }
-    })
-    .then((response) => {
-        console.log(response.data);
-        goals();
-    }).catch((err) => {
-        console.log(err.response);
-    })
-});
-
-
 // sidebar functionality
+_('#hamburger').addEventListener('click', () => {
+    if (_('#hamburger').classList.contains('active')) {
+        _('#hamburger').classList.remove('active');
+        _('#sidebar').classList.remove('active');
+        document.querySelectorAll('.flat').forEach((e) => {
+            e.classList.remove('active', 'animated', 'slideInLeft');
+            document.querySelectorAll(".flat span").forEach((d) => {
+                d.classList.remove('animated', 'fadeIn');
+            })
+        })
+    } else {
+        _('#hamburger').classList.add('active');
+        _('#sidebar').classList.add('active');
+        document.querySelectorAll('.flat').forEach((e) => {
+            e.classList.add('active', 'animated', 'slideInLeft');
+            document.querySelectorAll(".flat span").forEach((d) => {
+                d.classList.add('animated', 'fadeIn');
+            })
+        })
+    }
+})
+
 
 _('.lists').addEventListener('click', (e) => {
     e.preventDefault;
@@ -472,6 +622,7 @@ then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
 
 
+// logout user
 _("#logout").addEventListener('click', (e) => {
     e.preventDefault;
 

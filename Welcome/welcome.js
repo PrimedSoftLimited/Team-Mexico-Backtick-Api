@@ -143,7 +143,7 @@ function loginUI() {
             </small>
         </div>
         <small id="bottom">
-            a venture by the fine fellas at team mexico. drink responsibly 🍺 ♠
+            a venture by the fine fellas at team mexico. enjoy responsibly 🍺 ♠
         </small>`
         
     if (!(_('.wrapper-login').classList.contains('active'))) {

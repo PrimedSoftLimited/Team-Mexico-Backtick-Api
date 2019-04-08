@@ -1,0 +1,211 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(to top right, #348e9d, #354776);
+    height: 100vh;
+    overflow: hidden;
+}
+#con-flex {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 auto;
+    align-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    margin: auto;
+    filter: brightness(100%);
+}
+.word {
+    perspective: 200;
+    width: auto;
+    height: auto;
+    margin: 0px 38.5px 20px 15px;
+}
+.word a span {
+    border-bottom: 1px solid rgb(244, 199, 97);
+    padding-bottom: 5px;
+    /* text-shadow: 0 0 5pt #2E2D33, 0 0 5pt black; */
+}
+.char {
+    display: inline-block;
+    float: left;
+    position: relative;
+    height: auto;
+    width: 30px;
+    text-align: center;
+    padding: 0 12px;
+    color: white;
+    font-size: 2.3em;  
+    transform-style: preserve-3d;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateY(0);
+    }
+    25% {
+        transform: rotateY(90deg);
+    }
+    30% {
+        transform: rotateY(108deg);
+        color: rgb(244, 199, 97);
+    }
+    50% {
+        transform: rotateY(180deg);
+        color: rgb(244, 199, 97);
+    }
+    75% {
+        transform: rotateY(90deg);
+        color: white;
+        
+    }
+    100% {
+        transform: rotateY(0);
+    }
+} 
+.char.animate {
+    animation: rotate 1.5s ease-in-out both;
+}
+.slasher {
+    color: rgb(244, 199, 97);
+}
+
+
+/* form tings spekly 👌*/
+
+#con-form {
+    height: 100vh;
+    width: 100vw;
+}
+#con-flex.active {
+    filter: brightness(70%);
+    filter: blur(1px);
+}
+.form {
+    display: none;
+    position: absolute;
+    width: 400px;
+    height: 90vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 5px;
+}
+.form.active {
+    display: block;
+}
+.logo {
+    display: flex;
+    font-size: 1.5em;
+    justify-content: center;
+    margin-top: 8vh;
+}
+.logo-text {
+    background-color: deepskyblue;
+    width: 20px;
+    text-align: center;
+    font-family: 'Shadows Into Light', cursive;
+    padding: 1px 3px;
+    color: white;
+}
+.logo :nth-child(2n+1) {
+    /* transform: rotateY(90deg); */
+    transform: skewY(340deg);
+}
+.logo :nth-child(2n) {
+    /* transform: rotateZ(100deg); */
+    transform: skewY(-160deg);
+}
+.form h1 {
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    margin-bottom: 4vh;
+    margin-top: 0;
+}
+.form #bottom {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    justify-content: center;
+    font-size: .7em;
+    background-color: #999999;
+    font-variant: small-caps;
+}
+.form input {
+    border: 1px solid #999999;
+    padding: 8px;
+    margin-bottom: 8px;
+    width: 50%;
+    border-radius: 2px;
+}
+/* from intl phone input */
+.allow-dropdown {
+    width: 55%;
+}
+#reg-phone {
+    width: 100%;
+}
+#reg-pwd {
+    margin-top: 8px;
+}
+.form input[type='submit'] {
+    width: 55%;
+    border: none;
+    border-radius: 5px;
+    background-color: deepskyblue;
+}
+.form a {
+    text-decoration: none;
+    color: initial;
+}
+.wrapper-login {
+    height: 70%;
+    width: inherit;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper-login.active {
+    display: none;
+    width: 0;
+    height: 0;
+}
+.wrapper-login .small-text {
+    margin: 4vh 0;
+}
+.wrapper-signup {
+    margin-top: -8vh;
+    height: 100%;
+    width: inherit;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper-signup small:nth-of-type(1) {
+    margin-bottom: 4vh;
+    font-family: monospace;
+}
+.wrapper-signup small:nth-of-type(2) {
+    margin: 4vh 0;
+}
+
+
+.iti-flag {
+    background-image: url("../assets/apps/intl-tel-input-15.0.0/build/img/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .iti-flag {
+      background-image: url("../assets/apps/intl-tel-input-15.0.0/build/img/flags@2x.png");
+    }
+}
